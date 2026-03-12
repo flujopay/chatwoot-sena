@@ -33,10 +33,7 @@ module Enterprise::Account::PlanUsageAndLimits # rubocop:disable Metrics/ModuleL
   end
 
   def email_transcript_enabled?
-    default_plan = InstallationConfig.find_by(name: 'CHATWOOT_CLOUD_PLANS')&.value&.first
-    return true if default_plan.blank?
-
-    plan_name.present? && plan_name != default_plan['name']
+    true
   end
 
   def email_rate_limit
