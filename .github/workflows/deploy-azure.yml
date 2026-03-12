@@ -1,0 +1,25 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: chatwoot
+          key: ${{ secrets.VM_SSH_KEY }}
+          script_stop: true
+          script: |
+            cd /home/chatwoot/chatwoot-sena
+            git pull origin main
+            docker compose -f docker-compose.production.yaml build --no-cache
+            docker compose -f docker-compose.production.yaml run --rm rails bundle exec rails db:chatwoot_prepare
+            docker compose -f docker-compose.production.yaml up -d --remove-orphans
+            docker image prune -f

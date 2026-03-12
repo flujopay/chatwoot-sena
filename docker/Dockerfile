@@ -149,4 +149,6 @@ COPY --from=pre-builder /app/.git_sha /app/.git_sha
 
 WORKDIR /app
 
+ENV CW_EDITION="ee"
+
 EXPOSE 3000
