@@ -2,13 +2,7 @@ version: '3'
 
 services:
   base: &base
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
-      args:
-        RAILS_ENV: production
-        BUNDLE_WITHOUT: 'development:test'
-    image: chatwoot-sena:latest
+    image: ghcr.io/flujopay/chatwoot-sena:latest
     env_file: .env
     volumes:
       - storage_data:/app/storage

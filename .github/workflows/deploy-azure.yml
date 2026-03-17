@@ -19,7 +19,7 @@ jobs:
           script: |
             cd /home/chatwoot/chatwoot-sena
             git pull origin main
-            docker compose -f docker-compose.production.yaml build --no-cache
+            docker compose -f docker-compose.production.yaml pull
             docker compose -f docker-compose.production.yaml run --rm rails bundle exec rails db:chatwoot_prepare
             docker compose -f docker-compose.production.yaml up -d --remove-orphans
             docker image prune -f
