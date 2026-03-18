@@ -77,7 +77,7 @@ class OauthCallbackController < ApplicationController
   end
 
   def users_data
-    decoded_token = JWT.decode parsed_body[:id_token], nil, false
+    decoded_token = JWT.decode parsed_body['id_token'] || parsed_body[:id_token], nil, false
     decoded_token[0]
   end
 
